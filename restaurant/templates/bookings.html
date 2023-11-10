@@ -4,18 +4,12 @@
 {% block content %}
 <section>
   <article>
-    <!-- Add your code in the line below  -->
-    <h1> Make a reservation </h1>
-
+    <h1>All Reservations</h1>
     <!--Begin row-->
     <div class="row">
       <!--Begin col-->
       <div class="column">
-        <form action="" method="post">
-          {% csrf_token %}
-          {{form.as_p}}
-          <input type="submit" id="button">
-        </form>
+        <pre id="bookings"></pre>
       </div>
       <!--End col-->
 
@@ -37,16 +31,21 @@
 
   </article>
 </section>
+
 <!-- Add your code inside the script tags below  -->
- 
 <script>
-   console.log("Hello")
-    // Call the function getElementById() on the document and pass the string "id_reservation_date" to it as an argument
-    var reservationDateElement = document.getElementById("id_reservation_date");
 
-    // Suffix the code by adding a filter type="date" using a dot operator
-    reservationDateElement.innerHTML += '<input type="date" />';
+  // JSON data as a string (example data)
+    const bookingsData = '{{ bookings|safe }}';
 
+    // Parse the JSON data string and store it in the `bookings` constant
+    const bookings = JSON.parse(bookingsData);
+
+    // Call the log() function on console and pass `bookings` to it as an argument
+    console.log(bookings);
+
+    // Convert the `bookings` object back to a JSON string with 2 spaces of indentation
+    const pretty_json = JSON.stringify(bookings, null, 2);
 </script>
 {% endblock %}
 
